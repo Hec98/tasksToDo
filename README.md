@@ -25,7 +25,7 @@ flask init-db
 ```
 * Export for development
 ```sh
-xport FLASK_APP=todo && export FLASK_ENV=development
+export FLASK_APP=todo && export FLASK_ENV=development
 ```
 * Flask run
 ```sh
