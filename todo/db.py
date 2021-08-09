@@ -1,22 +1,22 @@
 import mysql.connector as mysqlDB
 import click
-from flask import current_app, g
+from flask import current_app, g as globalVar
 from flask.cli import with_appcontext
 from .schema import instructions
 
 def get_db():
-    if 'db' not in g:
-        g.db = mysqlDB.connect(
+    if 'db' not in globalVar:
+        globalVar.db = mysqlDB.connect(
             host = current_app.config['DATABASE_HOST'],
             user = current_app.config['DATABASE_USER'],
             password = current_app.config['DATABASE_PASSWORD'],
             database = current_app.config['DATABASE']
         )
-        g.c = g.db.cursor(dictionary = True)
-    return g.db, g.c
+        globalVar.c = globalVar.db.cursor(dictionary = True)
+    return globalVar.db, globalVar.c
 
 def close_db(e = None):
-    db = g.pop('db', None)
+    db = globalVar.pop('db', None)
     if db is not None: db.close()
     # if db is not e: db.close()
 
