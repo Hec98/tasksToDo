@@ -16,9 +16,16 @@ pip3 install Flask mysql-connector-python Werkzeug
 ```sh
 pip3 install neovim pylint
 ```
+* Environment Variables
+``` sh
+export FLASK_DATABASE_USER='user' &&
+export FLASK_DATABASE_PASSWORD='' &&
+export FLASK_DATABASE='todo' &&
+flask init-db
+```
 * Export for development
 ```sh
-export FLASK_APP=todo && export FLASK_ENV=development
+xport FLASK_APP=todo && export FLASK_ENV=development
 ```
 * Flask run
 ```sh
