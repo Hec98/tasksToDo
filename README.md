@@ -21,7 +21,6 @@ pip3 install neovim pylint
 export FLASK_DATABASE_USER='user' &&
 export FLASK_DATABASE_PASSWORD='' &&
 export FLASK_DATABASE='todo' &&
-flask init-db
 ```
 * Export for development
 ```sh
@@ -30,4 +29,8 @@ export FLASK_APP=todo && export FLASK_ENV=development
 * Flask run
 ```sh
 flask run
+```
+* Initialize databases
+```sh
+flask init-db
 ```
