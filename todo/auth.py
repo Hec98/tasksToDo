@@ -14,7 +14,7 @@ def register():
 
         db, c = get_db()
         error = None 
-        c.execute('SELECT id FROM user WHERE username = %s')
+        c.execute('SELECT id FROM user WHERE username = %s', (username,))
         
         if not  username : error = 'User is required'
         if not  password : error = 'Password is required'
