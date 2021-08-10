@@ -20,7 +20,7 @@ pip3 install neovim pylint
 ``` sh
 export FLASK_DATABASE_USER='user' &&
 export FLASK_DATABASE_PASSWORD='' &&
-export FLASK_DATABASE='todo' &&
+export FLASK_DATABASE='todo'
 ```
 * Export for development
 ```sh
