@@ -11,7 +11,7 @@ bp = Blueprint('todo', __name__)
 @login_required
 def index():
     _, c = get_db()
-    c.execute('SELECT t.id, t.description, u.username, t.completed, t.created_at FROM todo t JOIN user u ON t.created_by = u.id ORDER BY created_at DESC')
+    c.execute('SELECT t.id, t.description, u.username, t.completed, t.created_at FROM todo t JOIN user u ON t.created_by = u.id ORDER BY created_at ASC')
     todos = c.fetchall()
     return render_template('todo/index.html', todos = todos)
 
