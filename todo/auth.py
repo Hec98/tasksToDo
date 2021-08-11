@@ -41,7 +41,7 @@ def login():
         user = c.fetchone()
 
         if user is None: error = 'Invalid username or password'
-        elif not check_password_hash(user['password'], password): error = 'Invalid username or passwor'
+        elif not check_password_hash(user['password'], password): error = 'Invalid username or password'
 
         if error is None:
             session.clear()
