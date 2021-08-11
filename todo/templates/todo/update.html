@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h2>{% block title %}Update {{ todo['description'] }}{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+ <form method="post">
+    <div class="mb-3">
+      <label class="form-label" for="description">Description</label>
+      <input class="form-control" type="text" name="description" id="description" value="{{ request.form['description'] or todo['description'] }}" required>
+    </div>
+    <div class="mb-3 form-check">
+      <input class="form-check-input" type="checkbox" name="completed" id="completed" {% if todo['completed'] == 1 %}checked{% endif %}>
+      <label class="form-check-label" for="flexCheckDefault">Complete</label>
+    </div>
+    <button type="submit" class="btn btn-primary" value="Update">Update</button>
+  </form>
+  <form action="{{ url_for('todo.delete', id=todo['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete it')">
+  </form>
+{% endblock %}
