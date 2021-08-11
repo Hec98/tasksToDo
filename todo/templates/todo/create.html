@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}New todo{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+ <form method="post">
+    <div class="mb-3">
+      <label class="form-label" for="description">Description</label>
+      <input class="form-control" type="text" name="description" id="description" required>
+    </div>
+    <button type="submit" class="btn btn-primary" value="Save">Save</button>
+  </form>
+{% endblock %}
