@@ -11,15 +11,15 @@
   <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Todo List</a>
+      <div class="container">
+        <a class="navbar-brand" href="{{url_for('todo.index')}}">Todo List</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% if g.user %}
-            <label class="navbar-brand">{{ g.user['username'] }}</label>
+            <h5><span class="badge bg-info text-dark mt-2">{{ g.user['username'] }}</span></h5>
             <a class="nav-link active" href="{{ url_for('auth.logout') }}">Sign off</a>
           {% else %}
             <a class="nav-link active" href="{{url_for('auth.register')}}">Register</a>
