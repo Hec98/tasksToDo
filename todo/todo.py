@@ -31,9 +31,29 @@ def create():
 
     return render_template('todo/create.html')
 
+def get_todo(id):
+    _, c = get_db()
+    c.execute('SELECT t.id, t.description, t.completed, t.created_by, t.created_at, u.username FROM todo t JOIN user u ON t.created_by = u.id WHERE t.id = %s', (id,))
+    todo = c.fetchone()
+    if todo is None: abort(404, f'The todo of the id {id} does not exist')
+    return todo
+
 @bp.route('/<int:id>/update', methods = ['GET', 'POST'])
 @login_required
 def update(id):
+    todo = get_todo(id)
+    if request.method == 'POST':
+        description = request.form['description']
+        completed = True if request.form.get('completed') == 'on' else False
+        error = None
+        if not description: error = 'Description is required'
+        if error is not None: flash(error)
+        else: 
+            db, c = get_db()
+            c.execute('UPDATE todo SET description = %s, completed = %s WHERE id = %s', (description, completed, id))
+            db.commit()
+            return redirect(url_for('todo.index'))
+
     return render_template('todo/update.html', todo = todo)
 
 @bp.route('/<int:id>/delete', methods = ['POST'])
