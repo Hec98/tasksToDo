@@ -19,8 +19,8 @@
       <div class="fw-bold">{{ todo['description'] }}</div>
       {{ todo['created_at'].strftime('%d-%m-%Y') }}
     </div>
-    <button href="{{ url_for('todo.update', id=todo['id']) }}" type="button" class="btn btn-primary">Update</button>
-  </li>
+    <a class="btn btn-primary" href="{{ url_for('todo.update', id=todo['id']) }}">Update</a>
+    </li>
   {% endfor %}
 </ol>
 {% endblock %}
