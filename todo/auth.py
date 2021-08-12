@@ -1,7 +1,5 @@
 import functools
-from flask import (
-    Blueprint, flash, g, render_template, request, url_for, session, redirect
-)
+from flask import (Blueprint, flash, g, render_template, request, url_for, session, redirect)
 from werkzeug.security import check_password_hash, generate_password_hash
 from todo.db import get_db
 
