@@ -1,6 +1,4 @@
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
-)
+from flask import (Blueprint, flash, g, redirect, render_template, request, url_for)
 from werkzeug.exceptions import abort
 from todo.auth import login_required
 from todo.db import get_db
@@ -11,7 +9,14 @@ bp = Blueprint('todo', __name__)
 @login_required
 def index():
     _, c = get_db()
-    c.execute('SELECT t.id, t.description, u.username, t.completed, t.created_at FROM todo t JOIN user u ON t.created_by = u.id WHERE created_by = %s ORDER BY created_at ASC', (g.user['id'],))
+    c.execute(
+        """
+        SELECT t.id, t.description, u.username, t.completed, t.created_at 
+        FROM todo t JOIN user u ON t.created_by = u.id 
+        WHERE created_by = %s ORDER BY created_at ASC
+        """, 
+        (g.user['id'],)
+    )
     todos = c.fetchall()
     return render_template('todo/index.html', todos = todos)
 
@@ -25,7 +30,12 @@ def create():
         if error is not None: flash(error)
         else:
             db, c = get_db()
-            c.execute('INSERT INTO todo (description, completed, created_by) VALUES (%s, %s, %s)', (description, False, g.user['id']))
+            c.execute(
+                """
+                INSERT INTO todo (description, completed, created_by) VALUES (%s, %s, %s)
+                """, 
+                (description, False, g.user['id'])
+            )
             db.commit()
             return redirect(url_for('todo.index'))
 
@@ -33,7 +43,14 @@ def create():
 
 def get_todo(id):
     _, c = get_db()
-    c.execute('SELECT t.id, t.description, t.completed, t.created_by, t.created_at, u.username FROM todo t JOIN user u ON t.created_by = u.id WHERE t.id = %s', (id,))
+    c.execute(
+        """
+        SELECT t.id, t.description, t.completed, t.created_by, t.created_at, u.username 
+        FROM todo t JOIN user u ON t.created_by = u.id 
+        WHERE t.id = %s
+        """, 
+        (id,)
+    )
     todo = c.fetchone()
     if todo is None: abort(404, f'The todo of the id {id} does not exist')
     return todo
@@ -50,7 +67,12 @@ def update(id):
         if error is not None: flash(error)
         else: 
             db, c = get_db()
-            c.execute('UPDATE todo SET description = %s, completed = %s WHERE id = %s AND created_by = %s', (description, completed, id, g.user['id']))
+            c.execute(
+                """
+                UPDATE todo SET description = %s, completed = %s WHERE id = %s AND created_by = %s
+                """, 
+                (description, completed, id, g.user['id'])
+            )
             db.commit()
             return redirect(url_for('todo.index'))
 
